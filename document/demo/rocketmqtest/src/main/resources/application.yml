@@ -1,0 +1,30 @@
+#----------------------------------------------------eureka -------------------------------�ͻ��˿�
+server:
+  port: 7007
+
+
+spring:
+  application:
+    name: api-rocketmq
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    hostname: localhost
+    #instance-id: ${spring.application.name}:${server.port}
+    #�������5s��Ĭ��30s��ÿһ���������ú����������������ʱʱ��ᱻ������server�ˣ���ͬ���������Ƶ�ʿ��ܲ�ͬ��server�˻���ݱ�����������ֱ�̽��
+    lease-renewal-interval-in-seconds: 5
+    #������ʱʱ��10s��Ĭ��90s����client�����һ�η��������󣬴ﵽ���ʱ��û���ٴη�����������ʾ���񲻿��ã�������ʵ����ע�������Ƴ�
+    lease-expiration-duration-in-seconds: 10
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka
+
+rocketmq:
+  name-server: 192.168.43.119:9876
+  producer:
+    group: rocketmqtest
+
+
+

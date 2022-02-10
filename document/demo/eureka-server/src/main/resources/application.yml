@@ -1,0 +1,40 @@
+#----------------------------------------------------eureka -------------------------------服务端口
+server:
+  port: 8081
+
+spring:
+  application:
+    name: api-eureka
+
+eureka:
+  server:
+    enable-self-preservation: false # 禁用自我保护模式，原因在下面有解释
+  instance:
+    hostname: localhost # 指定主机名称
+  client:
+    register-with-eureka: false # 禁用向自己注册
+    fetch-registry: false # 禁用从自己拉取注册表信息
+
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    service-url: http://${eureka.instance.hostname}:${server.port}/eureka
+##  instance:
+#    hostname: 127.0.0.1
+   # defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+
+
+#  server:
+#    eviction-interval-timer-in-ms: 60000 #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒。
+#    renewal-percent-threshold: 0.85 #咋说呢，这个是上面自我保护的阙值。刚说的低于百分之八十五就是在这里设置的0.85。其实我觉得这些比较少用吧。
+#    enableSelfPreservation: false #这个是eureka的自我保护机制。通俗讲是心跳失败比例在15分钟内，低于85%，则不剔除客户端。到底开不开启看情况吧。默认为true
+#  instance:
+#    lease-renewal-interval-in-seconds: 5 #心跳间隔5s，默认30s。每一个服务配置后，心跳间隔和心跳超时时间会被保存在server端，不同服务的心跳频率可能不同，server端会根据保存的配置来分别探活
+#    lease-expiration-duration-in-seconds: 10 #心跳超时时间10s，默认90s。从client端最后一次发出心跳后，达到这个时间没有再次发出心跳，表示服务不可用，将它的实例从注册中心移除
+#    hostname: localhost
+#  client:
+#    register-with-eureka: false #允许这个服务端作为客户端么 默认t
+#    fetch-registry: false #是否需要拉取服务信息。这个我在官网看了好久意思。才发大概明白。也是为了在集群的时候同步数据。
+#    # Client在执行注册和心跳时对应的注册Server节点会广播此事件，同步给其他的Server节点。当其他Server节点还没有此服务信息时，
+#    # 改为注册此服务信息。因为我这个demo就是单服务中心的。所以也设置了false。系统默认是true。可以不配置，但是我还是建议配置。
